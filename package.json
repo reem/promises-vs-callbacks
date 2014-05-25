@@ -1,0 +1,10 @@
+{
+  "name": "promises-vs-callbacks",
+  "version": "0.0.0",
+  "description": "a simple example of promises vs callbacks",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "author": "Jonathan Reem <jonathan.reem@gmail.com> (http://www.jonathanreem.io/)",
+  "license": "MIT"
+}
