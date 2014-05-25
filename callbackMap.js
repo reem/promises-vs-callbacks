@@ -1,21 +1,11 @@
+var _ = require('lodash');
+
 module.exports = function (data, op, cb) {
-  var notDone = data.length;
-  var done = function () {
-    notDone--;
-  };
-
   var results = [];
-  var collect = function (datum) {
-    results.push(datum);
-    done();
-  };
-
-  for (var i = 0; i < data.length; i++) {
-    op(data[i], collect);
-  }
+  nodeStyleEach(data, op, results.push.bind(results));
 
   until(function () {
-    return notDone === 0;
+    return results.length === data.length;
   }, 5, function () {
     cb(results);
   });
@@ -28,4 +18,14 @@ var until = function (condition, delay, cb) {
       cb();
     }
   }, delay);
+};
+
+var flip = function (func) {
+  return function (x, y) {
+    return func(y, x);
+  };
+};
+
+var nodeStyleEach = function (data, op, cb) {
+  _.each(data, _.partial(flip(op), cb));
 };
