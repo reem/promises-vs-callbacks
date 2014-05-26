@@ -4,14 +4,14 @@ module.exports = function (data, op, cb) {
   var results = [];
   nodeStyleEach(data, op, results.push.bind(results));
 
-  until(function () {
+  when(function () {
     return results.length === data.length;
   }, 5, function () {
     cb(results);
   });
 };
 
-var until = function (condition, delay, cb) {
+var when = function (condition, delay, cb) {
   var timer = setInterval(function () {
     if (condition()) {
       clearInterval(timer);
